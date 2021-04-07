@@ -15,28 +15,38 @@ html, body {
    width: 60%;
 }
 
-.incomplete-list {
+.incomplete-section {
    margin: 30px auto 40px auto;
    width: 60%;
 }
 
-.incomplete-list ol {
+#incomplete-list {
+   justify-content: center;
    border: 1px black solid;
    border-radius: 5px;
    padding: 10px 0 10px 0;
 }
 
-.complete-list {
+.complete-section {
    margin: 30px auto 60px auto;
    width: 60%;
 }
 
-.complete-list ol {
+#complete-list {
+   justify-content: center;
    border: 1px black solid;
    border-radius: 5px;
    padding: 10px 0 10px 0;
 }
 
 .footer {
+ 
+}
+li {
+   display: flex;
+   padding-right:20px;   
+}
 
+li button {
+   float: right;
 }
