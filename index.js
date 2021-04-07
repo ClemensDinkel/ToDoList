@@ -1,6 +1,7 @@
 const input = document.querySelector("#input-text");
 const addButton = document.getElementById("add-input");
-
+const myArray = [];
+let counter = 1;
 const addInput = () => {
     const incompletedTasks = document.getElementById("incomplete-list");
     const completedTasks = document.getElementById("complete-list");
@@ -12,12 +13,15 @@ const addInput = () => {
     const delBtn = document.createElement('button');
     const chckBtn = document.createElement('button');
 
+
     editBtn.innerHTML = '<i class="fas fa-user-edit"></i>';
     chckBtn.innerHTML = '<i class="fas fa-check-square"></i>';
     delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
+    
+
     if (input.value !== '') {
-        text.textContent = input.value;
+        text.textContent = counter + ": " + input.value;
         input.value = '';
         incompletedTasks.appendChild(newLi);
         newLi.appendChild(text);
@@ -25,8 +29,12 @@ const addInput = () => {
         divBtn.appendChild(editBtn);
         divBtn.appendChild(chckBtn);
         divBtn.appendChild(delBtn);
+        /* myArray.push({id: myArray.length + 1, name: newLi, completedTask: false});
+        console.log(myArray);*/
+        counter++;
     } else {
         window.alert('Please enter a task');
+        
     }
 }
 
