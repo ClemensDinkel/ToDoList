@@ -6,25 +6,31 @@ const addInput = () => {
     const completedTasks = document.getElementById("complete-list");
 
     const newLi = document.createElement('li');
-    const editbtn = document.createElement('button');
-    const delbtn = document.createElement('button');
-    const chckbtn = document.createElement('button');
+    const text = document.createElement("p");
+    const divBtn = document.createElement('div');
+    const editBtn = document.createElement('button');
+    const delBtn = document.createElement('button');
+    const chckBtn = document.createElement('button');
 
-    editbtn.innerHTML = '<i class="fas fa-user-edit"></i>';
-    chckbtn.innerHTML = '<i class="fas fa-check-square"></i>';
-    delbtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    editBtn.innerHTML = '<i class="fas fa-user-edit"></i>';
+    chckBtn.innerHTML = '<i class="fas fa-check-square"></i>';
+    delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
 
     if (input.value !== '') {
-        newLi.textContent = input.value;
+        text.textContent = input.value;
         input.value = '';
         incompletedTasks.appendChild(newLi);
-        incompletedTasks.appendChild(editbtn);
-        incompletedTasks.appendChild(chckbtn);
-        incompletedTasks.appendChild(delbtn);
+        newLi.appendChild(text);
+        newLi.appendChild(divBtn);
+        divBtn.appendChild(editBtn);
+        divBtn.appendChild(chckBtn);
+        divBtn.appendChild(delBtn);
     } else {
         window.alert('Please enter a task');
     }
 }
 
 addButton.addEventListener('click', addInput);
-
+input.addEventListener('keyup', (e)=>{
+    (e.keyCode === 13 ? addInput(e) : null);
+})

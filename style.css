@@ -9,19 +9,19 @@ html, body {
    color: rgb(22, 153, 125);
 }
 
-.input-list {
+.input-task {
    margin: 30px auto 80px auto;
    padding: 10px 0 10px 0;
-   width: 60%;
+   
 }
 
 .incomplete-section {
    margin: 30px auto 40px auto;
-   width: 60%;
+   max-width: 400px;
+   min-width: 60%;
 }
 
-#incomplete-list {
-   justify-content: center;
+#incomplete-list {   
    border: 1px black solid;
    border-radius: 5px;
    padding: 10px 0 10px 0;
@@ -29,11 +29,11 @@ html, body {
 
 .complete-section {
    margin: 30px auto 60px auto;
-   width: 60%;
+   max-width: 400px;
+   min-width: 60%;
 }
 
 #complete-list {
-   justify-content: center;
    border: 1px black solid;
    border-radius: 5px;
    padding: 10px 0 10px 0;
@@ -44,9 +44,12 @@ html, body {
 }
 li {
    display: flex;
-   padding-right:20px;   
+   flex-wrap: wrap;
+   width: 100%;
+   justify-content: space-between;
+   margin-right: 20px;
 }
 
-li button {
-   float: right;
+li div {
+   align-self: center;
 }
