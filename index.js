@@ -28,6 +28,7 @@ const addInput = () => {
         divBtn.appendChild(editBtn);
         divBtn.appendChild(delBtn);
         divBtn.appendChild(chckBtn);
+        var incomplete = true;
         /* myArray.push({id: myArray.length + 1, name: newLi, completedTask: false});
         console.log(myArray);*/
     } else {
@@ -35,10 +36,6 @@ const addInput = () => {
     }
 
     chckBtn.addEventListener("click", function () {
-        if (typeof incomplete === "undefined") {
-            console.log("hello")
-            var incomplete = true // not working
-        };
         const listEntry = this.parentNode.parentNode;
         listEntry.remove();
         completedTasks.appendChild(listEntry);
@@ -46,8 +43,6 @@ const addInput = () => {
             editBtn.style.display = "none"
             /*chckBtn.style.display = "none";*/
             incomplete = false;
-            console.log("is true")
-            console.log(incomplete)
         } else {
             incompletedTasks.appendChild(listEntry);
             editBtn.style.display = "none" // change this
