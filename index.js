@@ -1,28 +1,27 @@
 const input = document.querySelector("#input-text");
 const addButton = document.getElementById("add-input");
 const myArray = [];
-let counter = 1;
 const addInput = () => {
     const incompletedTasks = document.getElementById("incomplete-list");
     const completedTasks = document.getElementById("complete-list");
 
-    const newLi = document.createElement('li');
+    const newLi = document.createElement("li");
     const text = document.createElement("p");
-    const divBtn = document.createElement('div');
-    const editBtn = document.createElement('button');
-    const delBtn = document.createElement('button');
-    const chckBtn = document.createElement('button');
+    const divBtn = document.createElement("div");
+    const editBtn = document.createElement("button");
+    const delBtn = document.createElement("button");
+    const chckBtn = document.createElement("button");
 
 
-    editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
-    delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-    chckBtn.innerHTML = '<i class="fas fa-check-square"></i>';
+    editBtn.innerHTML = "<i class='fas fa-pencil-alt'></i>";
+    delBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
+    chckBtn.innerHTML = "<i class='fas fa-check-square'></i>";
 
     
 
-    if (input.value !== '') {
-        text.textContent = counter + ": " + input.value;
-        input.value = '';
+    if (input.value !== "") {
+        text.innerHTML = input.value;
+        input.value = "";
         incompletedTasks.appendChild(newLi);
         newLi.appendChild(text);
         newLi.appendChild(divBtn);
@@ -31,14 +30,46 @@ const addInput = () => {
         divBtn.appendChild(chckBtn);
         /* myArray.push({id: myArray.length + 1, name: newLi, completedTask: false});
         console.log(myArray);*/
-        counter++;
     } else {
-        window.alert('Please enter a task');
+        window.alert("Please enter a task");
     }
-    
+
+    chckBtn.addEventListener("click", function () {
+        if (typeof incomplete === "undefined") {
+            console.log("hello")
+            var incomplete = true // not working
+        };
+        const listEntry = this.parentNode.parentNode;
+        listEntry.remove();
+        completedTasks.appendChild(listEntry);
+        if (incomplete) {
+            editBtn.style.display = "none"
+            /*chckBtn.style.display = "none";*/
+            incomplete = false;
+            console.log("is true")
+            console.log(incomplete)
+        } else {
+            incompletedTasks.appendChild(listEntry);
+            editBtn.style.display = "none" // change this
+            incomplete = true
+        }
+    });
+
+    delBtn.addEventListener("click", function () {
+        const listEntry = this.parentNode.parentNode;
+        listEntry.remove();
+    });
+
+    editBtn.addEventListener("click", function () {
+
+    });
 }
 
-addButton.addEventListener('click', addInput);
-input.addEventListener('keyup', (e)=>{
+addButton.addEventListener("click", addInput);
+input.addEventListener("keyup", (e)=>{
     (e.keyCode === 13 ? addInput(e) : null);
 })
+
+
+
+
