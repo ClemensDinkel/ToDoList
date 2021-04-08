@@ -14,9 +14,9 @@ const addInput = () => {
     const chckBtn = document.createElement('button');
 
 
-    editBtn.innerHTML = '<i class="fas fa-user-edit"></i>';
-    chckBtn.innerHTML = '<i class="fas fa-check-square"></i>';
+    editBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
     delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    chckBtn.innerHTML = '<i class="fas fa-check-square"></i>';
 
     
 
@@ -27,15 +27,15 @@ const addInput = () => {
         newLi.appendChild(text);
         newLi.appendChild(divBtn);
         divBtn.appendChild(editBtn);
-        divBtn.appendChild(chckBtn);
         divBtn.appendChild(delBtn);
+        divBtn.appendChild(chckBtn);
         /* myArray.push({id: myArray.length + 1, name: newLi, completedTask: false});
         console.log(myArray);*/
         counter++;
     } else {
         window.alert('Please enter a task');
-        
     }
+    
 }
 
 addButton.addEventListener('click', addInput);
