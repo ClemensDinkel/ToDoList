@@ -17,9 +17,7 @@ for (let i=1; i<=10;i++) {
     newLi.appendChild(editBtn)
     newLi.appendChild(delBtn)
     newLi.appendChild(chckBtn)
-    localStorage.setItem(`${localStorage.length}`,text.innerHTML)
+    window.localStorage.setItem(`${localStorage.length}`,text.innerHTML)
 }
 
-console.log(localStorage)
-localStorage.clear();
 console.log(localStorage)

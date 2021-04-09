@@ -21,7 +21,7 @@ const addInput = () => {
 
     if (input.value !== "") {
         text.innerHTML = input.value;
-        localStorage.setItem(`${localStorage.length}`,text.innerHTML)
+        window.localStorage.setItem(`${localStorage.length}`,text.innerHTML)
         console.log(localStorage); // delete this after test
         input.value = "";
         incompletedTasks.appendChild(newLi);
@@ -52,7 +52,7 @@ const addInput = () => {
     delBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
         listEntry.remove();
-        localStorage.removeItem(text.innerHTML.key)
+        localStorage.removeItem(text)
     });
 
     editBtn.addEventListener("click", function () {
@@ -101,6 +101,7 @@ const openPage = () => {
         delBtn.addEventListener("click", function () {
             const listEntry = this.parentNode.parentNode;
             listEntry.remove();
+            // we could loop through local storage and compare to the value??
         });
 
         editBtn.addEventListener("click", function () {
@@ -129,7 +130,7 @@ const changePlaceholderText = () => {
 openPage();
 changePlaceholderText();
 window.addEventListener('resize', changePlaceholderText);
-
+console.log(localStorage)
 
 /*   End Of  MediaQuery */
 
