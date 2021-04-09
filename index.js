@@ -55,7 +55,8 @@ const addInput = () => {
     });
 
     editBtn.addEventListener("click", function () {
-
+        let prt = prompt("Update your task", text.innerHTML);
+        text.innerText = prt;
     });
 }
 
