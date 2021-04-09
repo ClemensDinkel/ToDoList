@@ -21,3 +21,5 @@ for (let i=1; i<=10;i++) {
 }
 
 console.log(localStorage)
+localStorage.clear();
+console.log(localStorage)

@@ -21,7 +21,8 @@ const addInput = () => {
 
     if (input.value !== "") {
         text.innerHTML = input.value;
-        window.localStorage.setItem(`${localStorage.length}`,text.innerHTML)
+        // local storage is shared among websites, so keys need to be very specific
+        window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`,text.innerHTML);
         console.log(localStorage); // delete this after test
         input.value = "";
         incompletedTasks.appendChild(newLi);
@@ -38,13 +39,22 @@ const addInput = () => {
     chckBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
         listEntry.remove();
-        completedTasks.appendChild(listEntry);
+        
         if (incomplete) {
+            completedTasks.appendChild(listEntry);
             editBtn.style.display = "none"
+            // localStorage key should also tell us which list this paragraph should be added to.
+            // afaik localStorage doesn't allow to change keys, so entry needs to remove and created anew.
+            window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
+            window.localStorage.setItem(`ToDoList c ${text.innerHTML}`, text.innerHTML);
+            console.log(localStorage);
             incomplete = false;
         } else {
             incompletedTasks.appendChild(listEntry);
             editBtn.style.display = "block"
+            window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
+            window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);
+            console.log(localStorage);
             incomplete = true
         }
     });
