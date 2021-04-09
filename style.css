@@ -51,7 +51,7 @@ input[type=text] {
 }
 
 .task-list-div {
-   margin: 0 5rem 0 5rem;
+   margin: 0 auto 0 auto;
 }
 
 #incomplete-list {   
@@ -76,14 +76,21 @@ input[type=text] {
 
 li {
    display: flex;
-   flex-wrap: wrap;
    width: 100%;
    justify-content: space-between;
    margin-right: 20px;
 }
 
+li p {
+   text-align: left;
+   margin-left: 5px;
+}
+
 li div {
+   display: flex;
+   flex-direction: row;
    align-self: center;
+   float: right;
 }
 
 li button {

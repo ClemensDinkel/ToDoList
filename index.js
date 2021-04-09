@@ -41,11 +41,10 @@ const addInput = () => {
         completedTasks.appendChild(listEntry);
         if (incomplete) {
             editBtn.style.display = "none"
-            /*chckBtn.style.display = "none";*/
             incomplete = false;
         } else {
             incompletedTasks.appendChild(listEntry);
-            editBtn.style.display = "none" // change this
+            editBtn.style.display = "block"
             incomplete = true
         }
     });
@@ -65,6 +64,21 @@ input.addEventListener("keyup", (e)=>{
     (e.keyCode === 13 ? addInput(e) : null);
 })
 
+/*    MediaQuery */
 
 
+const changePlaceholderText = () => {
+    let x = window.matchMedia("(max-width: 400px)")
+    if (x.matches) {
+        document.getElementsByTagName("input")[0].setAttribute("placeholder", "Task");
+    } else {
+        document.getElementsByTagName("input")[0].setAttribute("placeholder", "Enter your task");
+    }
+}
+
+changePlaceholderText();
+window.addEventListener('resize', changePlaceholderText);
+
+
+/*   End Of  MediaQuery */
 
