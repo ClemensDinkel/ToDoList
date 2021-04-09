@@ -21,6 +21,8 @@ const addInput = () => {
 
     if (input.value !== "") {
         text.innerHTML = input.value;
+        localStorage.setItem(`${localStorage.length}`,text.innerHTML)
+        console.log(localStorage); // delete this after test
         input.value = "";
         incompletedTasks.appendChild(newLi);
         newLi.appendChild(text);
@@ -29,8 +31,6 @@ const addInput = () => {
         divBtn.appendChild(delBtn);
         divBtn.appendChild(chckBtn);
         var incomplete = true;
-        /* myArray.push({id: myArray.length + 1, name: newLi, completedTask: false});
-        console.log(myArray);*/
     } else {
         window.alert("Please enter a task");
     }
@@ -52,11 +52,61 @@ const addInput = () => {
     delBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
         listEntry.remove();
+        localStorage.removeItem(text.innerHTML.key)
     });
 
     editBtn.addEventListener("click", function () {
         text.innerText = prompt("Update your task", text.innerHTML);
     });
+}
+
+const openPage = () => {
+    const incompletedTasks = document.getElementById("incomplete-list");
+    const completedTasks = document.getElementById("complete-list");
+    for (let i = 0; i <localStorage.length; i++) {
+        const newLi = document.createElement("li");
+        const text = document.createElement("p");
+        const divBtn = document.createElement("div");
+        const editBtn = document.createElement("button");
+        const delBtn = document.createElement("button");
+        const chckBtn = document.createElement("button");
+
+        editBtn.innerHTML = "<i class='fas fa-pencil-alt'></i>";
+        delBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
+        chckBtn.innerHTML = "<i class='fas fa-check-square'></i>";
+
+        text.innerHTML = localStorage.getItem(i)
+        incompletedTasks.appendChild(newLi);
+        newLi.appendChild(text);
+        newLi.appendChild(divBtn);
+        divBtn.appendChild(editBtn);
+        divBtn.appendChild(delBtn);
+        divBtn.appendChild(chckBtn);
+        var incomplete = true;
+
+        chckBtn.addEventListener("click", function () {
+            const listEntry = this.parentNode.parentNode;
+            listEntry.remove();
+            completedTasks.appendChild(listEntry);
+            if (incomplete) {
+                editBtn.style.display = "none"
+                incomplete = false;
+            } else {
+                incompletedTasks.appendChild(listEntry);
+                editBtn.style.display = "block"
+                incomplete = true
+            }
+        });
+
+        delBtn.addEventListener("click", function () {
+            const listEntry = this.parentNode.parentNode;
+            listEntry.remove();
+        });
+
+        editBtn.addEventListener("click", function () {
+            text.innerText = prompt("Update your task", text.innerHTML);
+        });
+    }
 }
 
 addButton.addEventListener("click", addInput);
@@ -76,6 +126,7 @@ const changePlaceholderText = () => {
     }
 }
 
+openPage();
 changePlaceholderText();
 window.addEventListener('resize', changePlaceholderText);
 
