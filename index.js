@@ -62,7 +62,8 @@ const addInput = () => {
     delBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
         listEntry.remove();
-        localStorage.removeItem(text)
+        incomplete ? window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`) : window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
+        console.log(localStorage)
     });
 
     editBtn.addEventListener("click", function () {
