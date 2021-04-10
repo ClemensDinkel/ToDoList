@@ -4,7 +4,6 @@ const myArray = [];
 const addInput = () => {
     const incompletedTasks = document.getElementById("incomplete-list");
     const completedTasks = document.getElementById("complete-list");
-
     const newLi = document.createElement("li");
     const text = document.createElement("p");
     const divBtn = document.createElement("div");
@@ -17,58 +16,85 @@ const addInput = () => {
     delBtn.innerHTML = "<i class='fas fa-trash-alt'></i>";
     chckBtn.innerHTML = "<i class='fas fa-check-square'></i>";
 
-    
+    const paragpraphs = (document.getElementsByTagName("p"));
+    let duplicate = false;
+    for (let i = 0; i <paragpraphs.length; i++) {
+        if (input.value === paragpraphs[i].innerHTML) {
+            duplicate = true;
+        }
+    }
 
-    if (input.value !== "") {
-        text.innerHTML = input.value;
-        // local storage is shared among websites, so keys need to be very specific
-        window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`,text.innerHTML);
-        console.log(localStorage); // delete this after test
-        input.value = "";
-        incompletedTasks.appendChild(newLi);
-        newLi.appendChild(text);
-        newLi.appendChild(divBtn);
-        divBtn.appendChild(editBtn);
-        divBtn.appendChild(delBtn);
-        divBtn.appendChild(chckBtn);
-        var incomplete = true;
-    } else {
+    // .innerHTML
+    if (duplicate) {
+        window.alert("This task already exists")
+    }
+    else if (input.value !== "") {
+            text.innerHTML = input.value;
+            // local storage is shared among websites, so keys need to be very specific
+            window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`,text.innerHTML);
+            console.log(localStorage); // delete this after test
+            input.value = "";
+            incompletedTasks.appendChild(newLi);
+            newLi.appendChild(text);
+            newLi.appendChild(divBtn);
+            divBtn.appendChild(editBtn);
+            divBtn.appendChild(delBtn);
+            divBtn.appendChild(chckBtn);
+    }  else {
         window.alert("Please enter a task");
     }
 
     chckBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
-        listEntry.remove();
-        
-        if (incomplete) {
+        if (listEntry.parentNode === incompletedTasks) {
+            listEntry.remove();
             completedTasks.appendChild(listEntry);
             editBtn.style.display = "none"
             // localStorage key should also tell us which list this paragraph should be added to.
             // afaik localStorage doesn't allow to change keys, so entry needs to remove and created anew.
             window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
-            window.localStorage.setItem(`ToDoList c ${text.innerHTML}`, text.innerHTML);
+            window.localStorage.setItem(`ToDoList comp ${text.innerHTML}`, text.innerHTML);
             console.log(localStorage);
-            incomplete = false;
         } else {
+            listEntry.remove();
             incompletedTasks.appendChild(listEntry);
             editBtn.style.display = "block"
-            window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
+            window.localStorage.removeItem(`ToDoList comp ${text.innerHTML}`)
             window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);
             console.log(localStorage);
-            incomplete = true
         }
     });
 
     delBtn.addEventListener("click", function () {
         const listEntry = this.parentNode.parentNode;
+        listEntry.parentNode === incompletedTasks ? window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`) : window.localStorage.removeItem(`ToDoList comp ${text.innerHTML}`)
         listEntry.remove();
-        incomplete ? window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`) : window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
         console.log(localStorage)
     });
 
     editBtn.addEventListener("click", function () {
-        text.innerText = prompt("Update your task", text.innerHTML);
+        let promptInput = prompt("Update your task", text.innerHTML);
+        const paragpraphs = (document.getElementsByTagName("p"));
+        let duplicate = false;
+        for (let i = 0; i <paragpraphs.length; i++) {
+            if (promptInput === paragpraphs[i].innerHTML) {
+            duplicate = true;
+            }
+        }
+        if (duplicate) {
+            window.alert("Task already exists")
+        } else if (promptInput !== "") {
+            window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
+            text.innerText = promptInput;
+            window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);
+            console.log(localStorage);
+        } else {
+            window.alert("As charming as it would be to have an empty task, but no ;)")
+        }
     });
+/*window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
+                text.innerText = prompt("Update your task", text.innerHTML);
+                window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);*/
 }
 
 const openPage = () => {
@@ -100,45 +126,59 @@ const openPage = () => {
             // add to correct section
             if (key.includes("inc")) {
                 incompletedTasks.appendChild(newLi);
-                var incomplete = true;
-            } else if (key.includes("c")){
+            } else if (key.includes("comp")){
                 completedTasks.appendChild(newLi);
-                var incomplete = false;
                 editBtn.style.display = "none"
             }
             
             chckBtn.addEventListener("click", function () {
                 const listEntry = this.parentNode.parentNode;
-                listEntry.remove();
                 
-                if (incomplete) {
+                if (listEntry.parentNode === incompletedTasks) {
+                    listEntry.remove();
                     completedTasks.appendChild(listEntry);
                     editBtn.style.display = "none"
                     // localStorage key should also tell us which list this paragraph should be added to.
                     // afaik localStorage doesn't allow to change keys, so entry needs to remove and created anew.
                     window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
-                    window.localStorage.setItem(`ToDoList c ${text.innerHTML}`, text.innerHTML);
+                    window.localStorage.setItem(`ToDoList comp ${text.innerHTML}`, text.innerHTML);
                     console.log(localStorage);
-                    incomplete = false;
                 } else {
+                    listEntry.remove();
                     incompletedTasks.appendChild(listEntry);
                     editBtn.style.display = "block"
-                    window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
+                    window.localStorage.removeItem(`ToDoList comp ${text.innerHTML}`)
                     window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);
                     console.log(localStorage);
-                    incomplete = true
                 }
             });
         
             delBtn.addEventListener("click", function () {
                 const listEntry = this.parentNode.parentNode;
+                listEntry.parentNode === incompletedTasks ? window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`) : window.localStorage.removeItem(`ToDoList comp ${text.innerHTML}`)
                 listEntry.remove();
-                incomplete ? window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`) : window.localStorage.removeItem(`ToDoList c ${text.innerHTML}`)
                 console.log(localStorage)
             });
         
             editBtn.addEventListener("click", function () {
-                text.innerText = prompt("Update your task", text.innerHTML);
+                let promptInput = prompt("Update your task", text.innerHTML);
+                const paragpraphs = (document.getElementsByTagName("p"));
+                let duplicate = false;
+                for (let i = 0; i <paragpraphs.length; i++) {
+                    if (promptInput === paragpraphs[i].innerHTML) {
+                    duplicate = true;
+                    }
+                }
+                if (duplicate) {
+                    window.alert("Task already exists")
+                } else if (promptInput !== "") {
+                    window.localStorage.removeItem(`ToDoList inc ${text.innerHTML}`)
+                    text.innerText = promptInput;
+                    window.localStorage.setItem(`ToDoList inc ${text.innerHTML}`, text.innerHTML);
+                    console.log(localStorage);
+                } else {
+                    window.alert("As charming as it would be to have an empty task, but no ;)")
+                }
             });   
         }
         
@@ -171,3 +211,4 @@ window.addEventListener('resize', changePlaceholderText);
 
 openPage();
 console.log(localStorage)
+// a

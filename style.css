@@ -107,4 +107,9 @@ li button {
    background-color: black;
    color: #acadad;
    min-height: 10px;
+} 
+
+li button:hover {
+color: white;
+transform: scale(0.7);
 }
